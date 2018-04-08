@@ -1,0 +1,96 @@
+/* Carousel and pictures */
+
+.view:not(.hm-zoom) {
+    overflow:visible;
+}
+
+/* Margin from the top */
+
+.container {
+    .row {
+        margin-top: 2.5rem;
+    }
+}
+
+/* Simple blog listing */
+
+.simple-blog-listing {
+    .single-post {
+        margin-bottom: 5rem;
+        &.simple-post-text {
+            margin-bottom: 0;
+            border-bottom: 1px solid #e0e0e0;
+            .post-pictures {
+                img {
+                    margin-bottom: 1.5rem;
+                }
+            }
+        }
+        h5 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 1.2rem;
+        }
+        .post-data {
+            h5 {
+                margin-bottom: 2rem;
+                font-weight: 400;
+                i {
+                    padding-left: 1rem;
+                }
+            }
+        }
+    }
+}
+
+/* Archive */
+
+.archive {
+    ul {
+        li {
+            padding-top: 0.8rem;
+            border-top: 1px solid #eceeef;
+            &:first-of-type {
+                border-top: none;
+            }
+            padding-bottom: 0.3rem;
+        }
+    }
+}
+
+/* Author widget */
+
+.simple-author-widget {
+    .author-photo {
+        margin-bottom: 1.8rem;
+    }
+    .about-author {
+        h4 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        p {
+            text-align: justify;
+        }
+    }
+}
+
+/* Simple author page */
+
+.simple-author-page {
+    h1 {
+        margin-bottom: 2rem;
+    }
+    p {
+        text-align: center;
+    }
+    .view {
+        img {
+            margin-top: 2rem;
+        }
+    }
+}
