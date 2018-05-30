@@ -5,7 +5,8 @@ class Home extends CI_Controller{
 
   public function __construct()
   {
-    parent::__construct();
+    parent::__construct();    
+    $this->load->model(array('M_user'));
     //Codeigniter : Write Less Do More
   }
 
@@ -18,5 +19,6 @@ class Home extends CI_Controller{
       $this->load->view('login');
     }
   }
+
 
 }

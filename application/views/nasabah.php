@@ -70,6 +70,7 @@
             <th>Jenis Kelamin</th>
             <th>Tanggal Lahir</th>
             <th>Alamat</th>
+            <th>Jumlah Pinjaman</th>
             <th>Jaminan</th>
             <th>Jumlah Tanggungan</th>
             <th>Pekerjaan</th>
@@ -87,6 +88,7 @@
               <td><?php echo $row->jenis_kelamin ?></td>
               <td><?php echo $row->tanggal_lahir ?></td>
               <td><?php echo $row->alamat ?></td>
+              <td>Rp.<?php echo $row->jumlah_pinjaman ?></td>
               <td><?php echo $row->opsi_kriteria_jaminan ?></td>
               <td><?php echo $row->opsi_kriteria_jumlah_tanggungan ?></td>
               <td><?php echo $row->opsi_kriteria_pekerjaan ?></td>
@@ -132,9 +134,15 @@
                       <label for="nama">Nama Nasabah Baru</label>
                     </div>
                   </div>
-                  <div class="md-form">
-                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
-                    <label for="tanggal_lahir" class="active">Tanggal Lahir</label>
+                  <div class="row">
+                    <div class="md-form col">
+                      <input type="date" id="tanggal_lahir" name="tanggal_lahir" required>
+                      <label for="tanggal_lahir" class="active">Tanggal Lahir</label>
+                    </div>
+                    <div class="md-form col">
+                      <input type="number" id="jumlah_pinjaman" name="jumlah_pinjaman" required>
+                      <label for="jumlah_pinjaman" class="active">Jumlah Pinjaman</label>
+                    </div>
                   </div>
                   <div class="md-form">
                     <textarea type="text" required id="alamat" name="alamat" class="form-control md-textarea" value="" required></textarea>
@@ -244,9 +252,15 @@
                       <label for="nama">Nama Nasabah</label>
                     </div>
                   </div>
-                  <div class="md-form">
-                    <input type="date" id="edit_tanggal_lahir" name="edit_tanggal_lahir" required>
-                    <label for="tanggal_lahir" class="active">Tanggal Lahir</label>
+                  <div class="row">
+                    <div class="md-form col">
+                      <input type="date" id="edit_tanggal_lahir" name="edit_tanggal_lahir" required>
+                      <label for="tanggal_lahir" class="active">Tanggal Lahir</label>
+                    </div>
+                    <div class="md-form col">
+                      <input type="number" id="edit_jumlah_pinjaman" name="edit_jumlah_pinjaman" value="0" required>
+                      <label for="edit_jumlah_pinjaman" class="active">Jumlah Pinjaman</label>
+                    </div>
                   </div>
                   <div class="md-form">
                     <textarea type="text" required id="edit_alamat" name="edit_alamat" class="form-control md-textarea" value="" required> </textarea>
@@ -262,7 +276,7 @@
                       <label for="jenis_kelamin">Jenis Kelamin</label>
                     </div>
                     <div class="md-form col">
-                      <select id="id_kriteria_jaminan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_jaminan" required>
+                      <select id="edit_kriteria_jaminan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_jaminan" required>
                         <option value="">Pilih Jenis Jaminan</option>
                         <?php foreach ($jaminan as $key)
                         {?>
@@ -275,7 +289,7 @@
                   </div>
                   <div class="row">
                     <div class="md-form col">
-                      <select id="id_kriteria_jumlah_tanggungan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_jumlah_tanggungan" required>
+                      <select id="edit_kriteria_jumlah_tanggungan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_jumlah_tanggungan" required>
                         <option value="">Pilih Jumlah Tanggungan </option>
                         <?php foreach ($jumlah_tanggungan as $key)
                         {?>
@@ -286,7 +300,7 @@
                       <label for="id_kriteria_jumlah_tanggungan">Jumlah Tanggungan</label>
                     </div>
                     <div class="md-form col">
-                      <select id="id_kriteria_pekerjaan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_pekerjaan" required>
+                      <select id="edit_kriteria_pekerjaan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_pekerjaan" required>
                         <option value="">Pilih Jenis Pekerjaan</option>
                         <?php foreach ($pekerjaan as $key)
                         {?>
@@ -299,7 +313,7 @@
                   </div>
                   <div class="row">
                     <div class="md-form col">
-                      <select id="id_kriteria_penghasilan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_penghasilan" required>
+                      <select id="edit_kriteria_penghasilan" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_penghasilan" required>
                         <option value="">Pilih Jumlah Penghasilan</option>
                         <?php foreach ($penghasilan as $key)
                         {?>
@@ -310,7 +324,7 @@
                       <label for="id_kriteria_penghasilan">Jumlah Penghasilan</label>
                     </div>
                     <div class="md-form col">
-                      <select id="id_kriteria_status_rumah" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_status_rumah" required>
+                      <select id="edit_kriteria_status_rumah" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_status_rumah" required>
                         <option value="">Pilih Status Rumah</option>
                         <?php foreach ($status_rumah as $key)
                         {?>
@@ -382,8 +396,10 @@
         console.log(data);
         $('#edit_nik').val(data.nik);
         $('#edit_nama').val(data.nama);
-        $('#edit_jenis_kelamin').val(data.jenis_kelamin);
+        $('.select-dropdown li:eq('+data.jenis_kelamin+')').trigger('click');
+        //$('#edit_jenis_kelamin').val(data.jenis_kelamin);
         $('#edit_alamat').val(data.alamat);
+        $('#edit_jumlah_pinjaman').val(data.jumlah_pinjaman);
       },
       error:function(){
         alert('error get nasabah');

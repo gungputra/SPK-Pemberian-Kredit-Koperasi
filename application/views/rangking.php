@@ -55,15 +55,19 @@
       <h5>Hasil Rangking</h5>
     </div>
     <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">
-      <h4 class="card-title text-center" style="margin-bottom:30px;">Berikut Hasil dari Perangkingan</h4>
-      <table class="table table-striped table-hover">
+      <a href="<?php echo base_url('Rangking/cetak') ?>" class="btn btn-info pull-right" name="button">Cetak</a>
+      <table class="table table-striped table-hover table-sm">
         <thead>
           <tr>
-            <th>No</th>
+            <th>Peringkat</th>
             <th>NIK</th>
-            <th>Nama</th>
+            <th>Nama Nasabah</th>
+            <th>Jenis Kelamin</th>
+            <th>Tanggal Lahir</th>
+            <th>Alamat</th>
+            <th>Jumlah Pinjaman</th>
             <th>Jaminan</th>
-            <th>Tanggungan</th>
+            <th>Jumlah Tanggungan</th>
             <th>Pekerjaan</th>
             <th>Penghasilan</th>
             <th>Status Rumah</th>
@@ -77,11 +81,15 @@
             <td><?php echo $no?></td>
             <td><?php echo $row->nik ?></td>
             <td><?php echo $row->nama ?></td>
-            <td><?php echo $row->kriteria_jaminan ?></td>
-            <td><?php echo $row->kriteria_jumlah_tanggungan ?></td>
-            <td><?php echo $row->kriteria_pekerjaan ?></td>
-            <td><?php echo $row->kriteria_penghasilan ?></td>
-            <td><?php echo $row->kriteria_status_rumah ?></td>
+            <td><?php echo $row->jenis_kelamin ?></td>
+            <td><?php echo $row->tanggal_lahir ?></td>
+            <td><?php echo $row->alamat ?></td>
+            <td>Rp.<?php echo $row->jumlah_pinjaman ?></td>
+            <td><?php echo $row->opsi_kriteria_jaminan ?></td>
+            <td><?php echo $row->opsi_kriteria_jumlah_tanggungan ?></td>
+            <td><?php echo $row->opsi_kriteria_pekerjaan ?></td>
+            <td><?php echo $row->opsi_kriteria_penghasilan ?></td>
+            <td><?php echo $row->opsi_kriteria_status_rumah ?></td>
             <td><?php echo $row->nilai_akhir ?></td>
           </tr>
           <?php $no++; ?>

@@ -7,6 +7,8 @@ class Rangking extends CI_Controller{
   {
     parent::__construct();
     $this->load->model(array('M_rangking','M_kriteria','M_nasabah'));
+    $this->load->library('Pdf');
+    $this->load->helper(array('string'));
     //Codeigniter : Write Less Do More
   }
 
@@ -58,15 +60,20 @@ class Rangking extends CI_Controller{
     $this->db->order_by('nilai_akhir');
     $rangking = $this->db->get()->result();
 
-    $jumlah_nasabah = $this->M_nasabah->jumlah_nasabah();
-    $config['base_url'] = base_url('Rangking/index');
-    $config['total_rows'] = $jumlah_nasabah;
-    $config['per_page'] = 5;
-    $this->pagination->initialize($config);
-    $from = $this->uri->segment(3);
-    $kirim['rangking'] = $this->M_rangking->get_all($config['per_page'],$from);
+    $kirim['rangking'] = $this->M_rangking->get_all();
 
     $this->load->view('rangking',$kirim);
+  }
+
+  function cetak(){
+    $data['rangking'] = $this->M_rangking->get_all();
+
+    $html = $this->load->view('cetak', $data,TRUE);
+    $nama = "Hasil Perangkingan";
+    $pdf = $this->pdf->load();
+    $pdf->AddPage('L');
+    $pdf->WriteHTML($html,0);
+    $pdf->Output();
   }
 
 }
