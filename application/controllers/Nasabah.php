@@ -65,11 +65,11 @@ class Nasabah extends CI_Controller{
 
   function edit_nasabah(){
     $hasil = $this->M_nasabah->edit_nasabah();
-    if ($hasil) {
+    if ($hasil=='berhasil') {
       $this->session->set_flashdata('success', 'Nasabah berhasil diedit!');
     }
-    else {
-      $this->session->set_flashdata('error', 'Gagal mengedit nasabah!');
+    else if ($hasil=='tersedia') {
+      $this->session->set_flashdata('error', 'NIK yang diinput telah terdaftar  pada nasabah lain!');
     }
     redirect('Nasabah');
   }

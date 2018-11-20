@@ -61,9 +61,12 @@ class M_nasabah extends CI_Model{
   }
 
   function edit_nasabah(){
-    $nik = $this->input->post('edit_nik');
+    $nik_lama = $this->input->post('nik_lama');
+    $nik_baru = $this->input->post('edit_nik');
+
     $data=array(
       'nama' => $this->input->post('edit_nama'),
+      'nik' => $nik_baru,
       'tanggal_lahir' => $this->input->post('edit_tanggal_lahir'),
       'jenis_kelamin' => $this->input->post('edit_jenis_kelamin'),
       'alamat' => $this->input->post('edit_alamat'),
@@ -74,8 +77,26 @@ class M_nasabah extends CI_Model{
       'id_kriteria_penghasilan' => $this->input->post('id_kriteria_penghasilan'),
       'id_kriteria_status_rumah' => $this->input->post('id_kriteria_status_rumah')
     );
-    $this->db->where('nik', $nik);
-    return $this->db->update('nasabah',$data);
+
+    $this->db->where('nik', $nik_baru);
+    $cari = $this->db->get('nasabah')->num_rows();
+    if ($cari>0) {
+      if ($nik_lama==$nik_baru) {
+        $this->db->where('nik', $nik_lama);
+        $this->db->delete('nasabah');
+        $this->db->reset_query();
+        if($this->db->insert('nasabah', $data)) return 'berhasil';
+      }
+      else {
+        return 'tersedia';
+      }
+    }
+    else {
+      $this->db->where('nik', $nik_lama);
+      $this->db->delete('nasabah');
+      $this->db->reset_query();
+      if($this->db->insert('nasabah', $data)) return 'berhasil';
+    }
   }
 
   function ajax_get_nasabah(){

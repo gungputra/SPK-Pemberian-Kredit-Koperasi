@@ -50,6 +50,43 @@ class M_user extends CI_Model{
     else return 'password_beda';
   }
 
+  function edit_user(){
+    $username_lama = $this->input->post('username_lama');
+    $username_baru = $this->input->post('edit_username');
+
+    if ($this->input->post('edit_password')==$this->input->post('edit_rpt_password')) {
+      $data=array(
+        'username' => $this->input->post('edit_username'),
+        'name' => $this->input->post('edit_name'),
+        'password' => md5($this->input->post('edit_password')),
+        'role_id' => $this->input->post('edit_role_id'),
+      );
+    }
+    else {
+      return 'password_beda';
+    }
+
+    $this->db->where('username', $username_baru);
+    $cari = $this->db->get('user')->num_rows();
+    if ($cari>0) {
+      if ($username_lama==$username_baru) {
+        $this->db->where('username', $username_lama);
+        $this->db->delete('user');
+        $this->db->reset_query();
+        if($this->db->insert('user', $data)) return 'berhasil';
+      }
+      else {
+        return 'tersedia';
+      }
+    }
+    else {
+      $this->db->where('username', $username_lama);
+      $this->db->delete('user');
+      $this->db->reset_query();
+      if($this->db->insert('user', $data)) return 'berhasil';
+    }
+  }
+
   function delete_user($username){
     $this->db->where('username', $username);
     return $this->db->delete('user');

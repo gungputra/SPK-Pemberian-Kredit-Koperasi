@@ -50,13 +50,16 @@
   </div>
 </nav>
 <div class="" style="margin-left:30px; margin-right:30px; margin-top:80px;">
+  <div class="" style="width:100%">
+    <h5 class="badge badge-danger" style="margin-bottom:15px;width:100%; height:200%; font-size:25px"><?php echo $this->session->flashdata('error') ?></h5>
+  </div>
   <div class="card" style=" margin-bottom:100px">
     <div class="card-header success-color white-text">
       <h5>Hasil Rangking</h5>
     </div>
     <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">
       <a href="<?php echo base_url('Rangking/cetak') ?>" class="btn btn-info pull-right" name="button">Cetak</a>
-      <table class="table table-striped table-hover table-sm">
+      <table id="tb_rangking" class="table table-striped table-hover table-sm table-responsive">
         <thead>
           <tr>
             <th>Peringkat</th>
@@ -72,30 +75,33 @@
             <th>Penghasilan</th>
             <th>Status Rumah</th>
             <th>Total</th>
+            <th>Status</th>
           </tr>
         </thead>
         <?php $no=1 ?>
-        <?php foreach ($rangking as  $key => $row)
-        {?>
-          <tr>
-            <td><?php echo $no?></td>
-            <td><?php echo $row->nik ?></td>
-            <td><?php echo $row->nama ?></td>
-            <td><?php echo $row->jenis_kelamin ?></td>
-            <td><?php echo $row->tanggal_lahir ?></td>
-            <td><?php echo $row->alamat ?></td>
-            <td>Rp.<?php echo $row->jumlah_pinjaman ?></td>
-            <td><?php echo $row->opsi_kriteria_jaminan ?></td>
-            <td><?php echo $row->opsi_kriteria_jumlah_tanggungan ?></td>
-            <td><?php echo $row->opsi_kriteria_pekerjaan ?></td>
-            <td><?php echo $row->opsi_kriteria_penghasilan ?></td>
-            <td><?php echo $row->opsi_kriteria_status_rumah ?></td>
-            <td><?php echo $row->nilai_akhir ?></td>
-          </tr>
-          <?php $no++; ?>
-        <?php
-        }?>
-
+        <?php if (is_null($this->session->flashdata('error'))){ ?>
+          <?php foreach ($rangking as  $key => $row)
+          {?>
+            <tr>
+              <td><?php echo $no?></td>
+              <td><?php echo $row->nik ?></td>
+              <td><?php echo $row->nama ?></td>
+              <td><?php echo $row->jenis_kelamin ?></td>
+              <td><?php echo $row->tanggal_lahir ?></td>
+              <td><?php echo $row->alamat ?></td>
+              <td>Rp.<?php echo $row->jumlah_pinjaman ?></td>
+              <td><?php echo $row->opsi_kriteria_jaminan ?></td>
+              <td><?php echo $row->opsi_kriteria_jumlah_tanggungan ?></td>
+              <td><?php echo $row->opsi_kriteria_pekerjaan ?></td>
+              <td><?php echo $row->opsi_kriteria_penghasilan ?></td>
+              <td><?php echo $row->opsi_kriteria_status_rumah ?></td>
+              <td><?php echo $row->nilai_akhir ?></td>
+              <td><?php echo $row->status ?></td>
+            </tr>
+            <?php $no++; ?>
+          <?php
+          }?>
+        <?php }?>
       </table>
       <div class="" style="margin-bottom:20px;">
         <?php echo $this->pagination->create_links() ?>
@@ -128,6 +134,7 @@
 <script type="text/javascript" src='<?php echo base_url('assets/js/ajaxfileupload.js') ?>'></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#tb_rangking').DataTable();
     if ("<?php echo $this->session->userdata('role_id')?>"!="ADMIN") {
       $('#manage_user').hide();
     }

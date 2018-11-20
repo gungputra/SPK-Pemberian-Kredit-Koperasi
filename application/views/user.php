@@ -62,7 +62,7 @@
     </div>
     <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">
       <a href="" title="Tambah nasabah" id="btn_add_user" class="btn btn-success btn-sm text-white pull-right"><i class="fa fa-plus" aria-hidden="true"></i>  Tambah</a>
-      <table class="table table-striped table-hover" style="width:100%">
+      <table id="tb_list_user" class="table table-striped table-hover" style="width:100%">
         <thead>
           <tr>
             <th>No</th>
@@ -85,7 +85,7 @@
               <a href="<?php echo base_url("User/delete_user/".$row->username."")?>" onclick="return confirm('Yakin ingin menghapus data?')" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i>   Hapus</a>
             </td>
           </tr>
-        <?php
+        <?php $no++;
         }?>
       </table>
       <div class="" style="margin-bottom:20px;">
@@ -152,7 +152,7 @@
           <div class="modal-content">
               <!--Header-->
               <div class="modal-header text-center">
-                  <h4 id="header" class="modal-title white-text w-100 font-bold py-2">EDIT NASABAH</h4>
+                  <h4 id="header" class="modal-title white-text w-100 font-bold py-2">EDIT USER</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true" class="white-text">&times;</span>
                   </button>
@@ -161,16 +161,25 @@
               <!--Body-->
               <div class="modal-body">
                 <form id="" class="" action="<?php echo base_url('User/edit_user') ?>" method="post">
+                  <input type="hidden" id="username_lama" name="username_lama" value=" " required>
                   <div class="md-form">
-                    <input type="text" id="edit_username" name="edit_username" value=" " required readonly>
+                    <input type="text" id="edit_username" name="edit_username" value=" " required>
                     <label for="nik">Username</label>
                   </div>
                   <div class="md-form">
-                    <input type="text" id="edit_nama" name="edit_nama" value=" " required>
+                    <input type="text" id="edit_nama" name="edit_name" value=" " required>
                     <label for="nama">Nama User</label>
                   </div>
                   <div class="md-form">
-                    <select id="role_id" class="mdb-select colorful-select dropdown-success select_kriteria" name="id_kriteria_status_rumah">
+                    <input type="password" id="edit_password" name="edit_password" required>
+                    <label for="edit_password">Password</label>
+                  </div>
+                  <div class="md-form">
+                    <input type="password" id="edit_rpt_password" name="edit_rpt_password" required>
+                    <label for="edit_rpt_password">Repeat Password</label>
+                  </div>
+                  <div class="md-form">
+                    <select id="edit_role_id" class="mdb-select colorful-select dropdown-success select_kriteria" name="edit_role_id">
                       <option value="">Pilih Role</option>
                       <?php foreach ($role as $key)
                       {?>
@@ -216,6 +225,7 @@
 <script type="text/javascript" src='<?php echo base_url('assets/js/ajaxfileupload.js') ?>'></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#tb_list_user').DataTable();
     if ("<?php echo $this->session->userdata('role_id')?>"!="ADMIN") {
       $('#manage_user').hide();
     }
@@ -239,6 +249,7 @@
       },
       success:function(data){
         console.log(data);
+        $('#username_lama').val(data.username);
         $('#edit_username').val(data.username);
         $('#edit_nama').val(data.name);
       },

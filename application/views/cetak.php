@@ -27,6 +27,7 @@
               <th>Penghasilan</th>
               <th>Status Rumah</th>
               <th>Total</th>
+              <th>Status</th>
             </tr>
           </thead>
           <?php $no=1 ?>
@@ -46,6 +47,7 @@
               <td><?php echo $row->opsi_kriteria_penghasilan ?></td>
               <td><?php echo $row->opsi_kriteria_status_rumah ?></td>
               <td><?php echo $row->nilai_akhir ?></td>
+              <td><?php echo $row->status ?></td>
             </tr>
             <?php $no++; ?>
           <?php

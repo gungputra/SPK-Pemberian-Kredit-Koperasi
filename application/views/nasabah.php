@@ -62,7 +62,7 @@
     </div>
     <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">
       <a href="" title="Tambah nasabah" id="btn_add_nasabah" class="btn btn-success btn-sm text-white pull-right"><i class="fa fa-plus" aria-hidden="true"></i>  Tambah</a>
-      <table class="table table-striped table-hover table-responsive table-sm" style="margin-right:3px;">
+      <table id="tb_list_nasabah" class="table table-striped table-hover table-responsive table-sm" style="margin-right:3px;">
         <thead>
           <tr>
             <th>NIK</th>
@@ -126,7 +126,7 @@
                 <form id="" class="" action="<?php echo base_url('Nasabah/add_nasabah') ?>" method="post">
                   <div class="row">
                     <div class="md-form col">
-                      <input type="text" id="nik" name="nik" required>
+                      <input type="number" id="nik" name="nik" required>
                       <label for="nik">NIK</label>
                     </div>
                     <div class="md-form col">
@@ -242,9 +242,10 @@
               <!--Body-->
               <div class="modal-body">
                 <form id="" class="" action="<?php echo base_url('Nasabah/edit_nasabah') ?>" method="post">
+                  <input type="hidden" id="nik_lama" name="nik_lama" value="0">
                   <div class="row">
                     <div class="md-form col">
-                      <input type="text" id="edit_nik" name="edit_nik" value=" " required readonly>
+                      <input type="number" id="edit_nik" name="edit_nik" value="0" required>
                       <label for="nik">NIK</label>
                     </div>
                     <div class="md-form col">
@@ -371,6 +372,7 @@
 <script type="text/javascript" src='<?php echo base_url('assets/js/ajaxfileupload.js') ?>'></script>
 <script type="text/javascript">
   $(document).ready(function(){
+    $('#tb_list_nasabah').DataTable();
     if ("<?php echo $this->session->userdata('role_id')?>"!="ADMIN") {
       $('#manage_user').hide();
     }
@@ -395,6 +397,7 @@
       success:function(data){
         console.log(data);
         $('#edit_nik').val(data.nik);
+        $('#nik_lama').val(data.nik);
         $('#edit_nama').val(data.nama);
         $('.select-dropdown li:eq('+data.jenis_kelamin+')').trigger('click');
         //$('#edit_jenis_kelamin').val(data.jenis_kelamin);

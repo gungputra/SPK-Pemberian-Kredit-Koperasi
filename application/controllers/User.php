@@ -52,6 +52,20 @@ class User extends CI_Controller{
     redirect('User');
   }
 
+  function edit_user(){
+    $hasil = $this->M_user->edit_user();
+    if ($hasil=='berhasil') {
+      $this->session->set_flashdata('success', 'User berhasil diedit!');
+    }
+    else if ($hasil=='tersedia') {
+      $this->session->set_flashdata('error', 'Username yang diinput telah terdaftar pada user lain!');
+    }
+    else if($hasil=='password_beda'){
+      $this->session->set_flashdata('error', 'Password yang dimasukkan tidak sama!');
+    }
+    redirect('User');
+  }
+
   function login(){
     $username = $this->input->post('username');
     $password = md5($this->input->post('password'));
