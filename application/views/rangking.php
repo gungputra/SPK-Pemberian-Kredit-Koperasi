@@ -57,8 +57,7 @@
     <div class="card-header success-color white-text">
       <h5>Hasil Rangking</h5>
     </div>
-    <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">
-      <a href="<?php echo base_url('Rangking/cetak') ?>" class="btn btn-info pull-right" name="button">Cetak</a>
+    <div class="card-body" style="margin-left:30px; margin-right:30px; margin-top:9px;">      
       <table id="tb_rangking" class="table table-striped table-hover table-sm table-responsive">
         <thead>
           <tr>
